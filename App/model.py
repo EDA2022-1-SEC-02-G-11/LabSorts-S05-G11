@@ -37,11 +37,44 @@ los mismos.
 
 # Construccion de modelos
 
+def newCatalog():
+
+    catalog = {"artista" : None,
+               "albumes" : None,
+               "canciones" : None,}
+    
+    catalog["artistas"] = lt.newList("ARRAY_LIST")
+    catalog["albumes"] = lt.newList("ARRAY_LIST")
+    catalog["canciones"] = lt.newList("ARRAY_LIST")
+
+    return catalog
 # Funciones para agregar informacion al catalogo
+
+def addArtista(catalog, artista):
+    lt.addLast(catalog["artistas"],artista)
+    return catalog
+
+def addAlbum(catalog, album):
+    lt.addLast(catalog["albumes"],album)
+    return catalog
+
+def addCancion(catalog, cancion):
+    lt.addLast(catalog["canciones"], cancion)
+    return catalog
 
 # Funciones para creacion de datos
 
 # Funciones de consulta
+
+def artistaSize(catalog):
+    return lt.size(catalog["artistas"])
+
+def albumSize(catalog):
+    return lt.size(catalog["albumes"])
+
+def cancionSize(catalog):
+    return lt.size(catalog["canciones"])
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
