@@ -39,12 +39,15 @@ def newController(Lista):
 # Inicialización del Catálogo de libros
 
 def loadData(control, archivo):
+    inicio_tiempo = model.getTime()
     catalog = control["model"]
     artistas = loadArtistas(catalog, archivo) 
     albumes = loadAlbumes(catalog, archivo)
     canciones = loadCanciones(catalog, archivo)
+    final_tiempo = model.getTime()
+    tiempo = model.deltaTime(inicio_tiempo,final_tiempo)
 
-    return  artistas, albumes, canciones
+    return  artistas, albumes, canciones, tiempo
 
 # Funciones para la carga de 
 

@@ -49,8 +49,8 @@ def printMenu():
 catalog = None
 
 def loadData(archivo):
-    artistas, canciones, albumes = controller.loadData(control, archivo)
-    return artistas, canciones, albumes
+    artistas, canciones, albumes, tiempo = controller.loadData(control, archivo)
+    return artistas, canciones, albumes, tiempo
     
 
 
@@ -66,11 +66,11 @@ while True:
     if int(inputs[0]) == 1:
         archivo = input("Seleccione el tipo de archivo a cargar(small, 5pct, 10pct, 20pct, 30pct, 50pct, 80pct, large ): ")
         print("Cargando información de los archivos ....")
-        art, alb, canc = loadData(archivo)
+        art, alb, canc, tiempo = loadData(archivo)
         print('Artistas cargados: ' + str(art))
         print('Albumes cargados: ' + str(alb))
         print('Albumes cargados: ' + str(canc))
-
+        print(tiempo)
         #primeros = controller.primerosArtistas()
 
         #print(primeros)
