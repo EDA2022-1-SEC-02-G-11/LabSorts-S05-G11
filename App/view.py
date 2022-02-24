@@ -33,26 +33,29 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
+lista = ""
 
-def newController():
-    control = controller.newController()
+def newController(lista):
+    control = controller.newController(lista)
     return control
 
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")  
 
+    print("6- Escoger tipo de lista y algoritmo de ordenamiento")
+
 
 catalog = None
 
-def loadData():
-    artistas, canciones, albumes = controller.loadData(control)
+def loadData(archivo):
+    artistas, canciones, albumes = controller.loadData(control, archivo)
     return artistas, canciones, albumes
     
 
 
 # Se crea el controlador asociado a la vista
-control = newController()
+control = newController(lista)
 
 """
 Menu principal
@@ -61,15 +64,25 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        archivo = input("Seleccione el tipo de archivo a cargar(small, 5pct, 10pct, 20pct, 30pct, 50pct, 80pct, large ): ")
         print("Cargando información de los archivos ....")
-        art, alb, canc = loadData()
+        art, alb, canc = loadData(archivo)
         print('Artistas cargados: ' + str(art))
         print('Albumes cargados: ' + str(alb))
         print('Albumes cargados: ' + str(canc))
 
+        #primeros = controller.primerosArtistas()
 
-    elif int(inputs[0]) == 2:
-        pass
+        #print(primeros)
+    elif int(inputs[0]) == 6:
+        lista = input("Escriba el tipo de lista para organizar: ")
+        ordenamiento = input("Escribe el tipo de ordenamiento iterativo a usar: ")
+
+        resultado = controller.sortArtistas(control, ordenamiento)
+        newController(lista)  
+        print(resultado[1])
+
+    #! AVISO  TIPO DE lista     
 
     else:
         sys.exit(0)

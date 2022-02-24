@@ -27,43 +27,43 @@ import csv
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
-def newController():
+def newController(Lista):
 
     control = {
         "model": None
     }
-    control["model"] = model.newCatalog()
+    control["model"] = model.newCatalog(Lista)
     return control
 
 
 # Inicialización del Catálogo de libros
 
-def loadData(control):
+def loadData(control, archivo):
     catalog = control["model"]
-    artistas = loadArtistas(catalog) 
-    albumes = loadAlbumes(catalog)
-    canciones = loadCanciones(catalog)
+    artistas = loadArtistas(catalog, archivo) 
+    albumes = loadAlbumes(catalog, archivo)
+    canciones = loadCanciones(catalog, archivo)
 
     return  artistas, albumes, canciones
 
 # Funciones para la carga de 
 
-def loadArtistas(catalog):
-    archivoArtistas = cf.data_dir + "Spotify/spotify-artists-utf8-small.csv"
+def loadArtistas(catalog, archivo):
+    archivoArtistas = cf.data_dir + "Spotify/spotify-artists-utf8-"+str(archivo)+".csv"
     archivo = csv.DictReader(open(archivoArtistas, encoding= "utf-8"))
     for artista in archivo:
         model.addArtista(catalog, artista)
     return model.artistaSize(catalog)
 
-def loadAlbumes(catalog):
-    archivoAlbumes = cf.data_dir + "Spotify/spotify-albums-utf8-small.csv"
+def loadAlbumes(catalog, archivo):
+    archivoAlbumes = cf.data_dir + "Spotify/spotify-albums-utf8-"+str(archivo)+".csv"
     archivo = csv.DictReader(open(archivoAlbumes, encoding= "utf-8"))
     for album in archivo:
         model.addAlbum(catalog, album)
     return model.albumSize(catalog)
 
-def loadCanciones(catalog):
-    archivoCanciones = cf.data_dir + "Spotify/spotify-tracks-utf8-small.csv"
+def loadCanciones(catalog, archivo):
+    archivoCanciones = cf.data_dir + "Spotify/spotify-tracks-utf8-"+str(archivo)+".csv"
     archivo = csv.DictReader(open(archivoCanciones, encoding= "utf-8"))
     for cancion in archivo:
         model.addCancion(catalog, cancion)
@@ -72,6 +72,14 @@ def loadCanciones(catalog):
     
     
  # Funciones de ordenamiento
-def primerosArtistas():
-    
+def primerosArtistas(catalog):  
+        return model.primeros(catalog, "artistas")
+def primerosAlbumes(catalog):
+        return model.primeros(catalog, "albumes")
+def primerasCanciones(catalog):
+        return model.primeros(catalog, "canciones")
+
+def sortArtistas(control, ordenamiento):
+        return model.sortArtists(control["model"], ordenamiento)
+
 # Funciones de consulta sobre el catálogo

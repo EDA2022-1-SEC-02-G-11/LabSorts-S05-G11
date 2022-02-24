@@ -24,10 +24,13 @@
  * Dario Correal - Version inicial
  """
 
-
 import config as cf
+import time
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import shellsort as shel
+from DISClib.Algorithms.Sorting import selectionsort as sel
+from DISClib.Algorithms.Sorting import insertionsort as ins
+
 assert cf
 
 """
@@ -37,15 +40,16 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def newCatalog(Lista):
 
     catalog = {"artista" : None,
                "albumes" : None,
                "canciones" : None,}
     
-    catalog["artistas"] = lt.newList("ARRAY_LIST")
-    catalog["albumes"] = lt.newList("ARRAY_LIST")
-    catalog["canciones"] = lt.newList("ARRAY_LIST")
+    catalog["artistas"] = lt.newList(Lista)
+    catalog["albumes"] = lt.newList(Lista)
+    catalog["canciones"] = lt.newList(Lista)
+
 
     return catalog
 # Funciones para agregar informacion al catalogo
@@ -75,7 +79,59 @@ def albumSize(catalog):
 def cancionSize(catalog):
     return lt.size(catalog["canciones"])
 
+def primeros(catalog, tipo):
+    primero = catalog[tipo][0]
+    segundo = catalog[tipo][1]
+    tercero = catalog[tipo][2]
+
+    return primero, segundo, tercero
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
+def cmpArtistsByFollowers(artist1, artist2):
+    """ 
+    Devuelve verdadero (True) si los 'followers' de artist1 son menores que los del artist2
+    Args:
+    artist1: información del primer artista que incluye su valor 'followers'
+    artist2: información del segundo artista que incluye su valor 'followers'
+    """
+    cantidad = False
+    if artist1["followers"] < artist2["followers"]:
+        cantidad = True
+    
+    return cantidad
 # Funciones de ordenamiento
+
+def sortArtists(catalogo, ordenamiento):
+    if ordenamiento == "shell":
+        inicio_tiempo = getTime()
+        lista_ordenada = shel.sort(catalogo["artistas"],cmpArtistsByFollowers)
+        final_tiempo = getTime()
+        delta_tiempo = deltaTime(inicio_tiempo, final_tiempo)
+    if ordenamiento == "selection":
+        inicio_tiempo = getTime()
+        lista_ordenada = sel.sort(catalogo["artistas"],cmpArtistsByFollowers)
+        final_tiempo = getTime()
+        delta_tiempo = deltaTime(inicio_tiempo, final_tiempo)
+    if ordenamiento == "insertion":
+        inicio_tiempo = getTime()
+        lista_ordenada = ins.sort(catalogo["artistas"],cmpArtistsByFollowers)
+        final_tiempo = getTime()
+        delta_tiempo = deltaTime(inicio_tiempo, final_tiempo)
+
+    return lista_ordenada, delta_tiempo
+#Funciones para medir tiempos de ejecucion
+def getTime():
+    """
+    devuelve el instante tiempo de procesamiento en milisegundos
+    """
+    return float(time.perf_counter()*1000)
+
+
+def deltaTime(start, end):
+    """
+    devuelve la diferencia entre tiempos de procesamiento muestreados
+    """
+    elapsed = float(end - start)
+    return elapsed
+
