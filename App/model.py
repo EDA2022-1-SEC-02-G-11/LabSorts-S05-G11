@@ -49,7 +49,7 @@ def newCatalog(Lista):
     catalog["artistas"] = lt.newList(Lista)
     catalog["albumes"] = lt.newList(Lista)
     catalog["canciones"] = lt.newList(Lista)
-
+    print(Lista)
 
     return catalog
 # Funciones para agregar informacion al catalogo

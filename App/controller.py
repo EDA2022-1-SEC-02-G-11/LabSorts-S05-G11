@@ -23,6 +23,8 @@ import config as cf
 import model
 import csv
 
+csv.field_size_limit(5000*1024*1024)
+
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -33,6 +35,7 @@ def newController(Lista):
         "model": None
     }
     control["model"] = model.newCatalog(Lista)
+    print(Lista)
     return control
 
 

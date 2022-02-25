@@ -33,7 +33,7 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
-lista = ""
+
 
 def newController(lista):
     control = controller.newController(lista)
@@ -55,7 +55,7 @@ def loadData(archivo):
 
 
 # Se crea el controlador asociado a la vista
-control = newController(lista)
+control = newController("LINKED_LIST")
 
 """
 Menu principal
@@ -70,7 +70,8 @@ while True:
         print('Artistas cargados: ' + str(art))
         print('Albumes cargados: ' + str(alb))
         print('Albumes cargados: ' + str(canc))
-        print(tiempo)
+
+        print("                                   "+str(tiempo)+"                                          ")
         #primeros = controller.primerosArtistas()
 
         #print(primeros)
@@ -80,9 +81,9 @@ while True:
 
         resultado = controller.sortArtistas(control, ordenamiento)
         newController(lista)  
-        print(resultado[1])
+        print("                                   "+str(resultado[1])+"                                            ")
 
-    #! AVISO  TIPO DE lista     
+    #! AVISO  TIPO DE lista  
 
     else:
         sys.exit(0)
