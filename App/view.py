@@ -20,13 +20,17 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from email.policy import default
 import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+import sys
 
 
+default_limit = 10000
+sys.setrecursionlimit(default_limit*100)
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
@@ -35,7 +39,8 @@ operación solicitada
 """
 
 
-def newController(lista):
+def newController():
+    lista = input("Escriba el tipo de lista para organizar: ")
     control = controller.newController(lista)
     return control
 
@@ -55,7 +60,7 @@ def loadData(archivo):
 
 
 # Se crea el controlador asociado a la vista
-control = newController("LINKED_LIST")
+control = newController()
 
 """
 Menu principal
@@ -76,11 +81,10 @@ while True:
 
         #print(primeros)
     elif int(inputs[0]) == 6:
-        lista = input("Escriba el tipo de lista para organizar: ")
         ordenamiento = input("Escribe el tipo de ordenamiento iterativo a usar: ")
 
         resultado = controller.sortArtistas(control, ordenamiento)
-        newController(lista)  
+        newController()  
         print("                                   "+str(resultado[1])+"                                            ")
 
     #! AVISO  TIPO DE lista  

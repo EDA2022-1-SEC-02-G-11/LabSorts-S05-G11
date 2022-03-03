@@ -23,7 +23,8 @@ import config as cf
 import model
 import csv
 
-csv.field_size_limit(5000*1024*1024)
+csv.field_size_limit(500*102*102)
+
 
 
 """
@@ -35,7 +36,6 @@ def newController(Lista):
         "model": None
     }
     control["model"] = model.newCatalog(Lista)
-    print(Lista)
     return control
 
 
@@ -67,6 +67,7 @@ def loadAlbumes(catalog, archivo):
     for album in archivo:
         model.addAlbum(catalog, album)
     return model.albumSize(catalog)
+
 
 def loadCanciones(catalog, archivo):
     archivoCanciones = cf.data_dir + "Spotify/spotify-tracks-utf8-"+str(archivo)+".csv"
