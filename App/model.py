@@ -30,7 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as shel
 from DISClib.Algorithms.Sorting import selectionsort as sel
 from DISClib.Algorithms.Sorting import insertionsort as ins
-
+from DISClib.Algorithms.Sorting import quicksort as qui 
+from DISClib.Algorithms.Sorting import mergesort as mer
 assert cf
 
 """
@@ -116,6 +117,16 @@ def sortArtists(catalogo, ordenamiento):
     if ordenamiento == "insertion":
         inicio_tiempo = getTime()
         lista_ordenada = ins.sort(catalogo["artistas"],cmpArtistsByFollowers)
+        final_tiempo = getTime()
+        delta_tiempo = deltaTime(inicio_tiempo, final_tiempo)
+    if ordenamiento == "merge":
+        inicio_tiempo = getTime()
+        lista_ordenada = mer.sort(catalogo["artistas"],cmpArtistsByFollowers)
+        final_tiempo = getTime()
+        delta_tiempo = deltaTime(inicio_tiempo, final_tiempo)
+    if ordenamiento == "quick":
+        inicio_tiempo = getTime()
+        lista_ordenada = qui.sort(catalogo["artistas"],cmpArtistsByFollowers)
         final_tiempo = getTime()
         delta_tiempo = deltaTime(inicio_tiempo, final_tiempo)
 
